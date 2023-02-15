@@ -52,32 +52,44 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 16,
               ),
-
-              // SizedBox(
-              //   height: 56,
-              //   child: ListView.builder(
-              //     itemCount: activities.length,
-              //     //scrollDirection: Axis.horizontal,
-              //     shrinkWrap: true,
-              //     itemBuilder: (context, index) {
-              //       return  Padding(
-              //         padding:  EdgeInsets.only(right: 8),
-              //         child: buildContainer(
-              //           image: activities[index]['image']!,
-              //           text: activities[index]['text']!,
-              //           ),
-              //       );
-              //     } ),
-              // ),
-              // Row(
-              //   children: [
-              //     buildContainer(
-              //       image: 'images\rect1.png',
-              //     text: 'An organized life is a peaceful life.'),
-                 
-              //   ],
-              // ),
-              Image.asset('images\rect1.png'),
+              SizedBox(
+                height: 56,
+                child: ListView.builder(
+                    itemCount: activities.length,
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 8),
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 56,
+                              width: 136,
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: index == 1 ? 9 : 15),
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(image: AssetImage(activities[index]['image']!)),
+                                  // color: Colors.black,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Text(
+                                activities[index]['text']!,
+                                style: TextStyle(color: Colors.white, fontSize: 11),
+                              ),
+                            ),
+                            Positioned(
+                              right: 5,
+                              bottom: 5,
+                              child: Icon(
+                                Icons.favorite_border_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+              ),
             ],
           ),
         ),
@@ -85,51 +97,49 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Container buildContainer({required String image,required String text,}) {
-    return Container(
-                  height: 56,
-                  width: 136,
-                  padding: EdgeInsets.only(top: 6),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(image)),
-                      // color: Colors.black,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Column(
-                    children: [
-                      Text(
-                        text,
-                        style: TextStyle(color: Colors.white, fontSize: 11),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Icon(
-                            Icons.favorite_border_outlined,
-                            color: Colors.white,
-                          ),
-                        ],
-                        
-                      ),
-                      
-                    ],
-                  ),
-                );
+  Stack buildContainer({
+    required String image,
+    required String text,
+  }) {
+    return Stack(
+      children: [
+        Container(
+          height: 56,
+          width: 136,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage(image)),
+              // color: Colors.black,
+              borderRadius: BorderRadius.circular(8)),
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.white, fontSize: 11),
+          ),
+        ),
+        Positioned(
+         right: 5,
+          bottom: 5,
+          child: Icon(
+            Icons.favorite_border_outlined,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
   }
-  
 }
 
-// List<Map<String, String>> activities = [
-//   {
-//     'image':'images\mannn.png',
-//     'text':'An organized life is a peaceful life.',
-//   },
-//    {
-//     'image':'images\Rec2.png',
-//     'text':"Time isn’t the main thing, it’s the only thing.",
-//   },
-//    {
-//     'image':'images\rec3.png',
-//     'text':'Turn worrying into planning.',
-//   }
-// ];
+List<Map<String, String>> activities = [
+  {
+    'image': 'images/rect1.png',
+    'text': 'An organized life is a peaceful life.',
+  },
+  {
+    'image': 'images/Rec2.png',
+    'text': "Time isn’t the main thing, it’s the only\nthing.",
+  },
+  {
+    'image': 'images/rec3.png',
+    'text': 'Turn worrying into planning.',
+  }
+];
