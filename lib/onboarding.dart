@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'create_account.dart';
+
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 
@@ -67,15 +69,33 @@ class _OnboardingState extends State<Onboarding> {
                 }),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.only(left: 24, right: 24),
             child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                  contents.length, (index) => buildpage(index, context)),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: List.generate(
+                      contents.length, (index) => buildpage(index, context)),
+                ),
+                SizedBox(
+                  width: 133,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext) => CreateAccount()));
+                    },
+                    child: Text('Next'),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(
-            height: 71,
+            height: 30,
           )
         ],
       ),
